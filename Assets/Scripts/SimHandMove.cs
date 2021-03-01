@@ -7,6 +7,7 @@ public class SimHandMove : MonoBehaviour
     public Vector3 position;
     public float moveSpeed;
     public float turnSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,10 +62,12 @@ public class SimHandMove : MonoBehaviour
         #endregion
 
         //sprint?
-        //DoSprint();
+        DoSprint();
     }
     public void DoSprint()
     {
+        transform.Translate(Vector3.Lerp() * Time.deltaTime * moveSpeed);
+
         Debug.Log($"{transform.position}");
     }
 }
