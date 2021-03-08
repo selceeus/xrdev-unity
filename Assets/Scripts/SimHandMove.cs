@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class SimHandMove : MonoBehaviour
 {
     public Transform location;
@@ -11,12 +12,14 @@ public class SimHandMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;
+        //location.position = position;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKey(KeyCode.W))
         {
             transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed);
@@ -61,13 +64,23 @@ public class SimHandMove : MonoBehaviour
 
         #endregion
 
-        //sprint?
-        DoSprint();
-    }
-    public void DoSprint()
-    {
-        transform.Translate(Vector3.Lerp() * Time.deltaTime * moveSpeed);
+        // sprint?
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            DoSprint(10);
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            DoSprint(0.1f);
+        }
 
-        Debug.Log($"{transform.position}");
+        // Lerp Example
+        //transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime);
+    }
+
+    public void DoSprint(float sprintFactor)
+    {
+        moveSpeed *= sprintFactor;      // 
+        //moveSpeed = acceleration;  //Mathf.Lerp(moveSpeed, acceleration, Time.deltaTime);
     }
 }
